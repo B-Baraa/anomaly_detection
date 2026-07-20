@@ -40,3 +40,29 @@ Both the sensor readings (`data/ambient_temperature_system_failure.csv`) and the
 ECOD performs best and requires no tuning. Its flagged points visibly cluster inside the two real, documented failure windows — the model is catching genuine equipment degradation, not noise.
 
 ## Project structure
+
+## How to run
+
+```bash
+pip install -r requirements.txt
+jupyter notebook real_anomaly_detection_demo.ipynb
+```
+(On Windows, if `jupyter` isn't on your PATH, use `python -m notebook real_anomaly_detection_demo.ipynb` instead.)
+
+Then **Run All Cells**. Everything — data loading, feature engineering, model training, evaluation, and plots — runs top to bottom with no external downloads needed.
+
+## Why this matters
+
+Undetected equipment failures are expensive: by the time a threshold alarm fires, downtime has usually already started. Statistical anomalies in sensor data often appear hours-to-days before a hard failure is visible to a human, so catching them early turns unplanned outages into scheduled maintenance. Because the detectors here are unsupervised, this approach works even without a history of labeled past failures — the normal case for most real facilities. The same 5-step pipeline generalizes directly to other sensor types: vibration, pressure, network traffic, transaction logs, and more.
+
+## Possible extensions
+
+- Test the pipeline on other real NAB datasets (network traffic, CPU utilization, taxi demand)
+- Add weekly/seasonal features to catch slower-building drift
+- Ensemble multiple detectors into a single combined anomaly score
+- Wire the pipeline into a live alerting system for continuous monitoring
+
+## Credits
+
+- Dataset & ground truth: [Numenta Anomaly Benchmark (NAB)](https://github.com/numenta/NAB)
+- Detection library: [PyOD](https://github.com/yzhao062/pyod)
